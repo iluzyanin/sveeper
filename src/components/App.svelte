@@ -1,21 +1,23 @@
 <script>
   import Cell from './Cell.svelte';
+  import GameOver from './GameOver.svelte';
   import buildBoard from '../board';
   import difficultyLevels from '../difficultyLevels';
 
   let board;
   let selectedDifficulty = difficultyLevels[0];
   let remainingFlags = selectedDifficulty.values.bombsCount;
+  let hasBlownUp = false;
+  let hasDefusedAll = false;
 
-  function onDifficultyChange() {
+  function restart() {
     const { width, height, bombsCount } = selectedDifficulty.values;
+    hasBlownUp = false;
+    hasDefusedAll = false;
     board = buildBoard(width, height, bombsCount);
     remainingFlags = selectedDifficulty.values.bombsCount;
   }
-  onDifficultyChange();
-
-  let hasBlownUp = false;
-  let hasDefusedAll = false;
+  restart();
 
   function openCell(i, j) {
     const { width, height } = selectedDifficulty.values;
@@ -45,7 +47,7 @@
     board[i][j].hasFlag = !board[i][j].hasFlag;
 
     if (remainingFlags === 0) {
-      if (board.every(row => row.every(cell => cell.hasBomb && cell.hasFlag))) {
+      if (!board.some(row => row.some(cell => cell.hasBomb && !cell.hasFlag))) {
         hasDefusedAll = true;
       }
     }
@@ -57,20 +59,6 @@
     display: inline-block;
     margin: 0 auto;
     position: relative;
-  }
-
-  .over {
-    align-items: center;
-    background-color: grey;
-    color: yellow;
-    display: flex;
-    font-size: 2em;
-    font-weight: bold;
-    height: 100%;
-    justify-content: center;
-    opacity: 0.9;
-    position: absolute;
-    width: 100%;
   }
 
   .menu {
@@ -85,13 +73,13 @@
 
 <div class="game">
   {#if hasBlownUp}
-    <div class="over">😱💥💀</div>
+    <GameOver hasWon={false} on:restart={restart} />
   {/if}
   {#if hasDefusedAll}
-    <div class="over">😅👍🎉</div>
+    <GameOver hasWon={true} on:restart={restart} />
   {/if}
   <div class="menu">
-    <select bind:value={selectedDifficulty} on:change={onDifficultyChange}>
+    <select bind:value={selectedDifficulty} on:change={restart}>
       {#each difficultyLevels as difficultyLevel}
         <option value={difficultyLevel}>{difficultyLevel.name}</option>
       {/each}
