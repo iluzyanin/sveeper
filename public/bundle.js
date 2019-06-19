@@ -563,28 +563,55 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (70:0) {#if isGameOver}
-    function create_if_block(ctx) {
-    	var t;
+    // (86:2) {#if hasBlownUp}
+    function create_if_block_1(ctx) {
+    	var div;
 
     	return {
     		c: function create() {
-    			t = text("GAME OVER");
+    			div = element("div");
+    			div.textContent = "😱💥💀";
+    			div.className = "over svelte-1ues1nb";
+    			add_location(div, file$1, 85, 18, 2020);
     		},
 
     		m: function mount(target, anchor) {
-    			insert(target, t, anchor);
+    			insert(target, div, anchor);
     		},
 
     		d: function destroy(detaching) {
     			if (detaching) {
-    				detach(t);
+    				detach(div);
     			}
     		}
     	};
     }
 
-    // (74:6) {#each difficultyLevels as difficultyLevel}
+    // (87:2) {#if hasDefusedAll}
+    function create_if_block(ctx) {
+    	var div;
+
+    	return {
+    		c: function create() {
+    			div = element("div");
+    			div.textContent = "😅👍🎉";
+    			div.className = "over svelte-1ues1nb";
+    			add_location(div, file$1, 86, 21, 2077);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert(target, div, anchor);
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach(div);
+    			}
+    		}
+    	};
+    }
+
+    // (90:6) {#each difficultyLevels as difficultyLevel}
     function create_each_block_2(ctx) {
     	var option, t_value = ctx.difficultyLevel.name, t, option_value_value;
 
@@ -594,7 +621,7 @@ var app = (function () {
     			t = text(t_value);
     			option.__value = option_value_value = ctx.difficultyLevel;
     			option.value = option.__value;
-    			add_location(option, file$1, 74, 8, 1880);
+    			add_location(option, file$1, 90, 8, 2268);
     		},
 
     		m: function mount(target, anchor) {
@@ -614,7 +641,7 @@ var app = (function () {
     	};
     }
 
-    // (83:6) {#each row as cell, j}
+    // (99:6) {#each row as cell, j}
     function create_each_block_1(ctx) {
     	var current;
 
@@ -674,7 +701,7 @@ var app = (function () {
     	};
     }
 
-    // (81:2) {#each board as row, i}
+    // (97:2) {#each board as row, i}
     function create_each_block(ctx) {
     	var div, t, current;
 
@@ -708,8 +735,8 @@ var app = (function () {
     			}
 
     			t = space();
-    			div.className = "row svelte-ii6i3m";
-    			add_location(div, file$1, 81, 4, 2039);
+    			div.className = "row svelte-1ues1nb";
+    			add_location(div, file$1, 97, 4, 2427);
     		},
 
     		m: function mount(target, anchor) {
@@ -772,9 +799,11 @@ var app = (function () {
     }
 
     function create_fragment$1(ctx) {
-    	var t0, div1, div0, select, t1, t2, t3, current, dispose;
+    	var div1, t0, t1, div0, select, t2, t3, t4, current, dispose;
 
-    	var if_block = (ctx.isGameOver) && create_if_block();
+    	var if_block0 = (ctx.hasBlownUp) && create_if_block_1();
+
+    	var if_block1 = (ctx.hasDefusedAll) && create_if_block();
 
     	var each_value_2 = difficultyLevels;
 
@@ -807,9 +836,11 @@ var app = (function () {
 
     	return {
     		c: function create() {
-    			if (if_block) if_block.c();
-    			t0 = space();
     			div1 = element("div");
+    			if (if_block0) if_block0.c();
+    			t0 = space();
+    			if (if_block1) if_block1.c();
+    			t1 = space();
     			div0 = element("div");
     			select = element("select");
 
@@ -817,19 +848,19 @@ var app = (function () {
     				each_blocks_1[i].c();
     			}
 
-    			t1 = text("\n    ⛳ x ");
-    			t2 = text(ctx.remainingFlags);
-    			t3 = space();
+    			t2 = text("\n    ⛳ x ");
+    			t3 = text(ctx.remainingFlags);
+    			t4 = space();
 
     			for (var i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
     			if (ctx.selectedDifficulty === void 0) add_render_callback(() => ctx.select_change_handler.call(select));
-    			add_location(select, file$1, 72, 4, 1750);
-    			div0.className = "menu svelte-ii6i3m";
-    			add_location(div0, file$1, 71, 2, 1727);
-    			div1.className = "game svelte-ii6i3m";
-    			add_location(div1, file$1, 70, 0, 1706);
+    			add_location(select, file$1, 88, 4, 2138);
+    			div0.className = "menu svelte-1ues1nb";
+    			add_location(div0, file$1, 87, 2, 2115);
+    			div1.className = "game svelte-1ues1nb";
+    			add_location(div1, file$1, 84, 0, 1983);
 
     			dispose = [
     				listen(select, "change", ctx.select_change_handler),
@@ -842,9 +873,11 @@ var app = (function () {
     		},
 
     		m: function mount(target, anchor) {
-    			if (if_block) if_block.m(target, anchor);
-    			insert(target, t0, anchor);
     			insert(target, div1, anchor);
+    			if (if_block0) if_block0.m(div1, null);
+    			append(div1, t0);
+    			if (if_block1) if_block1.m(div1, null);
+    			append(div1, t1);
     			append(div1, div0);
     			append(div0, select);
 
@@ -854,9 +887,9 @@ var app = (function () {
 
     			select_option(select, ctx.selectedDifficulty);
 
-    			append(div0, t1);
     			append(div0, t2);
-    			append(div1, t3);
+    			append(div0, t3);
+    			append(div1, t4);
 
     			for (var i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].m(div1, null);
@@ -866,15 +899,26 @@ var app = (function () {
     		},
 
     		p: function update(changed, ctx) {
-    			if (ctx.isGameOver) {
-    				if (!if_block) {
-    					if_block = create_if_block();
-    					if_block.c();
-    					if_block.m(t0.parentNode, t0);
+    			if (ctx.hasBlownUp) {
+    				if (!if_block0) {
+    					if_block0 = create_if_block_1();
+    					if_block0.c();
+    					if_block0.m(div1, t0);
     				}
-    			} else if (if_block) {
-    				if_block.d(1);
-    				if_block = null;
+    			} else if (if_block0) {
+    				if_block0.d(1);
+    				if_block0 = null;
+    			}
+
+    			if (ctx.hasDefusedAll) {
+    				if (!if_block1) {
+    					if_block1 = create_if_block();
+    					if_block1.c();
+    					if_block1.m(div1, t1);
+    				}
+    			} else if (if_block1) {
+    				if_block1.d(1);
+    				if_block1 = null;
     			}
 
     			if (changed.difficultyLevels) {
@@ -901,7 +945,7 @@ var app = (function () {
     			if (changed.selectedDifficulty) select_option(select, ctx.selectedDifficulty);
 
     			if (!current || changed.remainingFlags) {
-    				set_data(t2, ctx.remainingFlags);
+    				set_data(t3, ctx.remainingFlags);
     			}
 
     			if (changed.board) {
@@ -942,12 +986,12 @@ var app = (function () {
     		},
 
     		d: function destroy(detaching) {
-    			if (if_block) if_block.d(detaching);
-
     			if (detaching) {
-    				detach(t0);
     				detach(div1);
     			}
+
+    			if (if_block0) if_block0.d();
+    			if (if_block1) if_block1.d();
 
     			destroy_each(each_blocks_1, detaching);
 
@@ -972,14 +1016,15 @@ var app = (function () {
         $$invalidate('remainingFlags', remainingFlags = selectedDifficulty.values.bombsCount);
       }
 
-      let isGameOver = false;
+      let hasBlownUp = false;
+      let hasDefusedAll = false;
 
       function openCell(i, j) {
         const { width, height } = selectedDifficulty.values;
         if (i >= 0 && i < height && j >= 0 && j < width && !board[i][j].isOpen) {
           board[i][j].isOpen = true; $$invalidate('board', board);
           if (board[i][j].hasBomb) {
-            $$invalidate('isGameOver', isGameOver = true);
+            $$invalidate('hasBlownUp', hasBlownUp = true);
             return;
           }
           if (board[i][j].value === 0) {
@@ -1005,7 +1050,7 @@ var app = (function () {
           if (board.some(row => row.some(cell => cell.hasBomb && !cell.hasFlag))) {
             console.log("nope!");
           } else {
-            console.log("win!");
+            $$invalidate('hasDefusedAll', hasDefusedAll = true);
           }
         }
       }
@@ -1029,7 +1074,8 @@ var app = (function () {
     		selectedDifficulty,
     		remainingFlags,
     		onDifficultyChange,
-    		isGameOver,
+    		hasBlownUp,
+    		hasDefusedAll,
     		openCell,
     		putFlag,
     		select_change_handler,

@@ -1,26 +1,26 @@
 export default [
   {
-    name: "Beginner",
+    name: 'Beginner',
     values: {
       width: 8,
       height: 8,
-      bombsCount: 10
-    }
+      bombsCount: 10,
+    },
   },
   {
-    name: "Intermediate",
+    name: 'Intermediate',
     values: {
       width: 13,
       height: 15,
-      bombsCount: 40
-    }
+      bombsCount: 40,
+    },
   },
   {
-    name: "Expert",
+    name: 'Expert',
     values: {
       width: 16,
       height: 30,
-      bombsCount: 99
-    }
-  }
+      bombsCount: 99,
+    },
+  },
 ];

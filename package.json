@@ -2,6 +2,10 @@
   "name": "svelte-app",
   "version": "1.0.0",
   "devDependencies": {
+    "eslint": "^5.3.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.17.3",
+    "eslint-plugin-svelte3": "^1.2.3",
     "npm-run-all": "^4.1.5",
     "prettier": "^1.18.2",
     "prettier-plugin-svelte": "^0.6.0",
@@ -12,6 +16,9 @@
     "rollup-plugin-svelte": "^5.0.3",
     "rollup-plugin-terser": "^4.0.4",
     "sirv-cli": "^0.4.0",
+    "stylelint": "^10.1.0",
+    "stylelint-config-standard": "^18.3.0",
+    "stylelint-order": "^3.0.0",
     "svelte": "^3.0.0",
     "ws": "^7.0.1"
   },
@@ -20,6 +27,10 @@
     "autobuild": "rollup -c -w",
     "dev": "run-p start:dev autobuild",
     "start": "sirv public",
-    "start:dev": "sirv public --dev"
+    "start:dev": "sirv public --dev",
+    "stylelint": "stylelint --fix src/**/*.svelte",
+    "eslint": "eslint --fix src/**/*.js src/**/*.svelte",
+    "prettier": "prettier --write src/**/*.svelte",
+    "lint": "run-s prettier && run-p eslint stylelint"
   }
 }

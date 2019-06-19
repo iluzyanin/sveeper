@@ -1,27 +1,28 @@
 <script>
-  import Cell from "./Cell.svelte";
-  import buildBoard from "../board.js";
-  import difficultyLevels from "../difficultyLevels";
+  import Cell from './Cell.svelte';
+  import buildBoard from '../board';
+  import difficultyLevels from '../difficultyLevels';
 
   let board;
   let selectedDifficulty = difficultyLevels[0];
   let remainingFlags = selectedDifficulty.values.bombsCount;
-  onDifficultyChange();
 
   function onDifficultyChange() {
     const { width, height, bombsCount } = selectedDifficulty.values;
     board = buildBoard(width, height, bombsCount);
     remainingFlags = selectedDifficulty.values.bombsCount;
   }
+  onDifficultyChange();
 
-  let isGameOver = false;
+  let hasBlownUp = false;
+  let hasDefusedAll = false;
 
   function openCell(i, j) {
     const { width, height } = selectedDifficulty.values;
     if (i >= 0 && i < height && j >= 0 && j < width && !board[i][j].isOpen) {
       board[i][j].isOpen = true;
       if (board[i][j].hasBomb) {
-        isGameOver = true;
+        hasBlownUp = true;
         return;
       }
       if (board[i][j].value === 0) {
@@ -44,10 +45,8 @@
     board[i][j].hasFlag = !board[i][j].hasFlag;
 
     if (remainingFlags === 0) {
-      if (board.some(row => row.some(cell => cell.hasBomb && !cell.hasFlag))) {
-        console.log("nope!");
-      } else {
-        console.log("win!");
+      if (board.every(row => row.every(cell => cell.hasBomb && cell.hasFlag))) {
+        hasDefusedAll = true;
       }
     }
   }
@@ -57,22 +56,44 @@
   .game {
     display: inline-block;
     margin: 0 auto;
+    position: relative;
   }
+
+  .over {
+    align-items: center;
+    background-color: grey;
+    color: yellow;
+    display: flex;
+    font-size: 2em;
+    font-weight: bold;
+    height: 100%;
+    justify-content: center;
+    opacity: 0.9;
+    position: absolute;
+    width: 100%;
+  }
+
   .menu {
     display: flex;
     justify-content: space-between;
   }
+
   .row {
     display: flex;
   }
 </style>
 
-{#if isGameOver}GAME OVER{/if}
 <div class="game">
+  {#if hasBlownUp}
+    <div class="over">😱💥💀</div>
+  {/if}
+  {#if hasDefusedAll}
+    <div class="over">😅👍🎉</div>
+  {/if}
   <div class="menu">
     <select bind:value={selectedDifficulty} on:change={onDifficultyChange}>
       {#each difficultyLevels as difficultyLevel}
-        <option value={difficultyLevel}> {difficultyLevel.name} </option>
+        <option value={difficultyLevel}>{difficultyLevel.name}</option>
       {/each}
     </select>
     ⛳ x {remainingFlags}

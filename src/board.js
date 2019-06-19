@@ -4,9 +4,9 @@ const getRandomSequence = (totalCount, sequenceLength) => {
 
   for (let i = totalCount - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * i);
-    result[j] = result[i] + result[j];
+    result[j] += result[i];
     result[i] = result[j] - result[i];
-    result[j] = result[j] - result[i];
+    result[j] -= result[i];
   }
 
   return result.slice(0, sequenceLength);
@@ -19,7 +19,7 @@ const bumpBombsCount = (board, x, y) => {
     return;
   }
 
-  board[y][x].value++;
+  board[y][x].value++; // eslint-disable-line
 };
 
 const buildBoard = (width, height, bombsCount) => {

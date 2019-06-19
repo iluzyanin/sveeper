@@ -18,43 +18,43 @@
     width: 30px;
   }
 
-  .cell.value--1 {
+  .value--1 {
     color: #1600ff;
   }
 
-  .cell.value--2 {
+  .value--2 {
     color: #008000;
   }
 
-  .cell.value--3 {
-    color: #ff0000;
+  .value--3 {
+    color: #f00;
   }
 
-  .cell.value--4 {
+  .value--4 {
     color: #060080;
   }
 
-  .cell.value--5 {
+  .value--5 {
     color: #800000;
   }
 
-  .cell.value--6 {
+  .value--6 {
     color: #008080;
   }
 
-  .cell.value--7 {
+  .value--7 {
     color: #000;
   }
 
-  .cell.value--8 {
+  .value--8 {
     color: #808080;
   }
 
-  .cell.hasBomb {
+  .hasBomb {
     background-color: tomato;
   }
 
-  .cell.isOpen {
+  .isOpen {
     border-style: inset;
   }
 </style>
