@@ -6,25 +6,36 @@
 
   let board;
   let selectedDifficulty = difficultyLevels[0];
-  let remainingFlags = selectedDifficulty.values.bombsCount;
-  let hasBlownUp = false;
-  let hasDefusedAll = false;
 
   function restart() {
     const { width, height, bombsCount } = selectedDifficulty.values;
-    hasBlownUp = false;
-    hasDefusedAll = false;
     board = buildBoard(width, height, bombsCount);
-    remainingFlags = selectedDifficulty.values.bombsCount;
   }
   restart();
+
+  $: remainingFlags =
+    selectedDifficulty.values.bombsCount -
+    board.reduce(
+      (total, rows) =>
+        total +
+        rows.reduce((sumRow, cell) => sumRow + (cell.hasFlag ? 1 : 0), 0),
+      0
+    );
+
+  $: hasDefusedAll = !board.some(row =>
+    row.some(cell => cell.hasBomb && !cell.hasFlag)
+  );
+
+  $: hasBlownUp = board.some(row =>
+    row.some(cell => cell.hasBomb && cell.isOpen)
+  );
 
   function openCell(i, j) {
     const { width, height } = selectedDifficulty.values;
     if (i >= 0 && i < height && j >= 0 && j < width && !board[i][j].isOpen) {
       board[i][j].isOpen = true;
+      board[i][j].hasFlag = false;
       if (board[i][j].hasBomb) {
-        hasBlownUp = true;
         return;
       }
       if (board[i][j].value === 0) {
@@ -41,16 +52,7 @@
   }
 
   function putFlag(i, j) {
-    remainingFlags = board[i][j].hasFlag
-      ? remainingFlags + 1
-      : remainingFlags - 1;
     board[i][j].hasFlag = !board[i][j].hasFlag;
-
-    if (remainingFlags === 0) {
-      if (!board.some(row => row.some(cell => cell.hasBomb && !cell.hasFlag))) {
-        hasDefusedAll = true;
-      }
-    }
   }
 </script>
 

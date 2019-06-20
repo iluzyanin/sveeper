@@ -50,10 +50,6 @@
     color: #808080;
   }
 
-  .hasBomb {
-    background-color: tomato;
-  }
-
   .isOpen {
     border-style: inset;
   }
