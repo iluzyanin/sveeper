@@ -10,6 +10,7 @@
   .number {
     font-family: 'Digital', monospace;
     font-size: 2em;
+    height: 25px;
     position: relative;
   }
 

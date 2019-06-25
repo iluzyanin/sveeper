@@ -34,8 +34,15 @@
 
 <style>
   .menu {
+    align-items: center;
     display: flex;
     justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .difficulty {
+    height: 32px;
+    width: 130px;
   }
 
   .remainingFlags {
@@ -50,7 +57,10 @@
 </style>
 
 <div class="menu">
-  <select bind:value={selectedDifficulty} on:change={handleChange}>
+  <select
+    bind:value={selectedDifficulty}
+    on:change={handleChange}
+    class="difficulty">
     {#each difficultyLevels as difficultyLevel}
       <option value={difficultyLevel}>{difficultyLevel.name}</option>
     {/each}
