@@ -1,5 +1,6 @@
 <script>
   import { createEventDispatcher } from 'svelte';
+  import { fade } from 'svelte/transition';
 
   export let hasWon = false;
 
@@ -35,7 +36,7 @@
   }
 </style>
 
-<div class="over" class:hasWon>
+<div class="over" class:hasWon transition:fade={{ duration: 100 }}>
   <div>{hasWon ? '😅👍🎉' : '😱💥💀'}</div>
   <div class="restart" on:click={handleClick}>🔄</div>
 </div>

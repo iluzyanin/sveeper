@@ -7,18 +7,18 @@
 
   let board;
   let selectedDifficulty = difficultyLevels[0];
-  let time = 0;
+  let time = selectedDifficulty.maxTime;
 
   const restart = () => {
-    const { width, height, bombsCount } = selectedDifficulty.values;
-    board = buildBoard(width, height, bombsCount);
-    time = 0;
+    const { boardWidth, boardHeight, bombsCount } = selectedDifficulty;
+    board = buildBoard(boardWidth, boardHeight, bombsCount);
+    time = selectedDifficulty.maxTime;
   };
 
   restart();
 
   $: remainingFlags =
-    selectedDifficulty.values.bombsCount -
+    selectedDifficulty.bombsCount -
     board.reduce(
       (total, rows) =>
         total +
@@ -34,12 +34,13 @@
     row.some(cell => cell.hasBomb && cell.isOpen)
   );
 
+  $: isGameOver = hasDefusedAll || hasBlownUp || time === 0;
+
   $: isGameStarted =
     board.some(row => row.some(cell => cell.hasFlag || cell.isOpen)) &&
-    !hasDefusedAll &&
-    !hasBlownUp;
+    !isGameOver;
 
-  $: if (hasDefusedAll || hasBlownUp) {
+  $: if (isGameOver) {
     board.forEach(row => row.forEach(cell => (cell.isOpen = true)));
   }
 </script>
@@ -53,7 +54,7 @@
 </style>
 
 <div class="game">
-  {#if hasBlownUp || hasDefusedAll}
+  {#if isGameOver}
     <GameOver hasWon={hasDefusedAll} on:restart={restart} />
   {/if}
   <Menu

@@ -6,7 +6,7 @@
   export let remainingFlags = 0;
   export let selectedDifficulty;
   export let isGameStarted;
-  export let time = 0;
+  export let time;
 
   const dispatch = createEventDispatcher();
 
@@ -19,7 +19,7 @@
   $: if (isGameStarted) {
     if (!interval) {
       interval = setInterval(() => {
-        time += 1;
+        time -= 1;
       }, 1000);
     }
   } else {
