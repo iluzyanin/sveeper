@@ -13,7 +13,7 @@
     const { width, height, bombsCount } = selectedDifficulty.values;
     board = buildBoard(width, height, bombsCount);
     time = 0;
-  }
+  };
 
   restart();
 
@@ -38,6 +38,10 @@
     board.some(row => row.some(cell => cell.hasFlag || cell.isOpen)) &&
     !hasDefusedAll &&
     !hasBlownUp;
+
+  $: if (hasDefusedAll || hasBlownUp) {
+    board.forEach(row => row.forEach(cell => (cell.isOpen = true)));
+  }
 </script>
 
 <style>
