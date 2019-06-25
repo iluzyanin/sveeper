@@ -18,11 +18,11 @@
     display: flex;
     flex-direction: column;
     font-size: 2em;
-    height: calc(100% - 32px);
+    height: calc(100% - 42px);
     justify-content: center;
     opacity: 0.9;
     position: absolute;
-    top: 32px;
+    top: 42px;
     width: 100%;
     z-index: 1;
   }

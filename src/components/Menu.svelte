@@ -45,12 +45,12 @@
     width: 130px;
   }
 
-  .remainingFlags {
+  .iconGroup {
     align-items: center;
     display: flex;
   }
 
-  .flagIcon {
+  .icon {
     font-size: 1.5em;
     margin-right: 5px;
   }
@@ -65,9 +65,15 @@
       <option value={difficultyLevel}>{difficultyLevel.name}</option>
     {/each}
   </select>
-  <Number maxDigits={3} value={time} />
-  <div class="remainingFlags">
-    <div class="flagIcon">⛳</div>
+  <div class="iconGroup">
+    <div class="icon">⏱</div>
+    <Number
+      maxDigits={3}
+      value={time}
+      color={time > 10 ? 'green' : '#e93f33'} />
+  </div>
+  <div class="iconGroup">
+    <div class="icon">⛳</div>
     <Number maxDigits={2} value={remainingFlags} color="green" />
   </div>
 </div>
