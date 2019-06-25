@@ -18,8 +18,8 @@ export default [
   {
     name: 'Expert',
     values: {
-      width: 16,
-      height: 30,
+      width: 30,
+      height: 16,
       bombsCount: 99,
     },
   },

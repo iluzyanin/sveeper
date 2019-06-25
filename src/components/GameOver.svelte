@@ -1,26 +1,33 @@
 <script>
   import { createEventDispatcher } from 'svelte';
+
   export let hasWon = false;
 
   const dispatch = createEventDispatcher();
 
-  function handleClick() {
+  const handleClick = () => {
     dispatch('restart');
-  }
+  };
 </script>
 
 <style>
   .over {
     align-items: center;
-    background-color: grey;
+    background-color: indianred;
     display: flex;
     flex-direction: column;
     font-size: 2em;
-    height: 100%;
+    height: calc(100% - 32px);
     justify-content: center;
     opacity: 0.9;
     position: absolute;
+    top: 32px;
     width: 100%;
+    z-index: 1;
+  }
+
+  .over.hasWon {
+    background-color: lightgreen;
   }
 
   .restart {
@@ -28,7 +35,7 @@
   }
 </style>
 
-<div class="over">
+<div class="over" class:hasWon>
   <div>{hasWon ? '😅👍🎉' : '😱💥💀'}</div>
   <div class="restart" on:click={handleClick}>🔄</div>
 </div>

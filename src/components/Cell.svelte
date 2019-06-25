@@ -7,15 +7,34 @@
 
 <style>
   .cell {
-    background-color: gainsboro;
-    border: 3px outset;
+    background-color: #ddd;
+    border-color: #9a9a9a;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    box-sizing: border-box;
     cursor: pointer;
-    font-size: 1.5em;
+    font-family: 'Sweeper', sans-serif;
+    font-size: 1em;
     font-weight: bold;
-    height: 30px;
-    line-height: 30px;
+    height: 36px;
+    line-height: 36px;
+    position: relative;
     text-align: center;
-    width: 30px;
+    width: 36px;
+  }
+
+  .cell::after {
+    border: 3px outset #fff;
+    box-sizing: border-box;
+    content: '';
+    height: 100%;
+    left: 0;
+    position: absolute;
+    width: 100%;
+  }
+
+  .cell.isOpen::after {
+    border: none;
   }
 
   .value--1 {
@@ -48,10 +67,6 @@
 
   .value--8 {
     color: #808080;
-  }
-
-  .isOpen {
-    border-style: inset;
   }
 </style>
 
