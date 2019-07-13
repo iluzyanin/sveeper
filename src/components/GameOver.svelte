@@ -37,6 +37,6 @@
 </style>
 
 <div class="over" class:hasWon transition:fade={{ duration: 100 }}>
-  <div>{hasWon ? '😅👍🎉' : '😱💥💀'}</div>
+  <div>{hasWon ? '😱🎉😅' : '😱💥💀'}</div>
   <div class="restart" on:click={handleClick}>🔄</div>
 </div>
